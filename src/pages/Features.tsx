@@ -3,44 +3,53 @@ import { CheckIcon } from '@heroicons/react/24/outline';
 
 const features = [
   {
-    title: 'Smart Supplier Discovery',
-    description: 'AI-powered matching system connects you with the perfect suppliers based on your specific requirements',
+    title: '🎯 AI Demand Forecasting',
+    description: 'Leverage advanced machine learning algorithms to predict demand patterns with unprecedented accuracy',
     benefits: [
-      'Advanced filtering and search capabilities',
-      'Verified supplier profiles with detailed information',
-      'Real-time availability and capacity data',
-      'Intelligent recommendations based on your needs'
-    ]
+      '95% forecast accuracy with historical data analysis',
+      '30% inventory reduction through optimized planning',
+      'Seasonal trend detection and anomaly alerts',
+      'Multi-variable forecasting including market factors'
+    ],
+    metrics: '95% accuracy, 30% inventory reduction',
+    cta: 'Try Demo'
   },
   {
-    title: 'Real-time Collaboration',
-    description: 'Seamless communication and project management tools for efficient supply chain coordination',
+    title: '⚠ Risk Assessment & Analytics',
+    description: 'Real-time risk monitoring and mitigation strategies to protect your supply chain from disruptions',
     benefits: [
-      'Instant messaging and video conferencing',
-      'Shared document repositories and version control',
-      'Project timeline tracking and milestone management',
-      'Multi-language support for global teams'
-    ]
+      'Comprehensive supplier risk scoring system',
+      'Geopolitical and weather impact analysis',
+      'Financial stability monitoring and alerts',
+      'Automated contingency plan recommendations'
+    ],
+    metrics: 'Real-time monitoring, Proactive alerts',
+    cta: 'View Sample Report'
   },
   {
-    title: 'Quality Assurance',
-    description: 'Comprehensive quality control and inspection management system with digital documentation',
+    title: '🏢 Manufacturer Directory & Networking',
+    description: 'Connect with verified manufacturers worldwide through our comprehensive directory platform',
     benefits: [
-      'Digital inspection checklists and reports',
-      'Photo and video documentation capability',
-      'Automated quality scoring and analytics',
-      'Compliance tracking and certification management'
-    ]
+      'Access to 50,000+ verified manufacturers globally',
+      'Advanced search with AI-powered matching',
+      'Direct communication and RFQ management',
+      'Success stories and performance tracking'
+    ],
+    metrics: '50,000+ manufacturers, Global coverage',
+    cta: 'Explore Directory',
+    link: '/directory'
   },
   {
-    title: 'Supply Chain Analytics',
-    description: 'Advanced analytics and reporting tools provide deep insights into your supply chain performance',
+    title: '📊 Inventory & Logistics Tracking',
+    description: 'Complete visibility and control over your inventory and logistics operations in real-time',
     benefits: [
-      'Real-time performance dashboards',
-      'Predictive analytics for demand forecasting',
-      'Cost optimization recommendations',
-      'Risk assessment and mitigation strategies'
-    ]
+      'Real-time inventory tracking across locations',
+      'Seamless integration with existing ERP systems',
+      'Automated reorder points and stock optimization',
+      'Interactive ROI calculator and savings tracker'
+    ],
+    metrics: 'Real-time tracking, ROI optimization',
+    cta: 'Calculate Savings'
   }
 ];
 
@@ -130,6 +139,9 @@ export default function Features() {
                 <div className="flex-1 space-y-6">
                   <h3 className="text-3xl font-bold">{feature.title}</h3>
                   <p className="text-lg text-muted-foreground">{feature.description}</p>
+                  <div className="bg-primary/10 rounded-lg p-4 border border-primary/20">
+                    <p className="text-sm font-medium text-primary">Key Metrics: {feature.metrics}</p>
+                  </div>
                   <ul className="space-y-3">
                     {feature.benefits.map((benefit, benefitIndex) => (
                       <motion.li
@@ -145,6 +157,18 @@ export default function Features() {
                       </motion.li>
                     ))}
                   </ul>
+                  <motion.button
+                    className="bg-gradient-primary text-white px-6 py-3 rounded-lg font-medium hover:shadow-primary transition-all duration-300"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      if (feature.link) {
+                        window.location.href = feature.link;
+                      }
+                    }}
+                  >
+                    {feature.cta}
+                  </motion.button>
                 </div>
                 <div className="flex-1">
                   <div className="w-full h-80 bg-gradient-secondary rounded-xl shadow-secondary flex items-center justify-center">
