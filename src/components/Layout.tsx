@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
-import { AuthModal } from './AuthModal';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const navigation = [
@@ -14,14 +13,19 @@ const navigation = [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
+  // Don't show header on auth pages
+  const isAuthPage = location.pathname.includes('/sign-in') || 
+                     location.pathname.includes('/verify-company') || 
+                     location.pathname.includes('/sign-up');
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      {/* Header - Only show on non-auth pages */}
+      {!isAuthPage && (
+        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
@@ -58,18 +62,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
             {/* Auth Buttons */}
             <div className="hidden md:flex items-center space-x-4">
-              <Button
-                variant="ghost"
-                onClick={() => setIsAuthModalOpen(true)}
-              >
-                Sign In
-              </Button>
-              <Button
-                variant="hero"
-                onClick={() => setIsAuthModalOpen(true)}
-              >
-                Get Started
-              </Button>
+              <Link to="/sign-in">
+                <Button variant="ghost">
+                  Sign In
+                </Button>
+              </Link>
+              <Link to="/verify-company">
+                <Button variant="hero">
+                  Get Started
+                </Button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -112,41 +114,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
               </Link>
             ))}
             <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-              <Button
-                variant="ghost"
-                onClick={() => {
-                  setIsAuthModalOpen(true);
-                  setIsMobileMenuOpen(false);
-                }}
-                className="justify-start"
-              >
-                Sign In
-              </Button>
-              <Button
-                variant="hero"
-                onClick={() => {
-                  setIsAuthModalOpen(true);
-                  setIsMobileMenuOpen(false);
-                }}
-                className="justify-start"
-              >
-                Get Started
-              </Button>
+              <Link to="/sign-in" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button variant="ghost" className="justify-start w-full">
+                  Sign In
+                </Button>
+              </Link>
+              <Link to="/verify-company" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button variant="hero" className="justify-start w-full">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </motion.div>
       </header>
+      )}
 
       {/* Main Content */}
       <main className="flex-1">
         {children}
       </main>
-
-      {/* Auth Modal */}
-      <AuthModal 
-        isOpen={isAuthModalOpen} 
-        onClose={() => setIsAuthModalOpen(false)} 
-      />
     </div>
   );
 }
