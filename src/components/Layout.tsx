@@ -16,10 +16,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  // Don't show header on auth pages
+  // Don't show header on auth pages and dashboard
   const isAuthPage = location.pathname.includes('/sign-in') || 
                      location.pathname.includes('/verify-company') || 
-                     location.pathname.includes('/sign-up');
+                     location.pathname.includes('/sign-up') ||
+                     location.pathname.includes('/dashboard');
 
   return (
     <div className="min-h-screen bg-background">
