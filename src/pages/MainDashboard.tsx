@@ -90,9 +90,9 @@ function AppSidebar() {
   const isCollapsed = state === "collapsed";
 
   return (
-    <Sidebar className={isCollapsed ? "w-14" : "w-60"} collapsible="icon">
+    <Sidebar className={`${isCollapsed ? "w-14" : "w-60"} transition-all duration-300 ease-in-out`} collapsible="icon">
       <div className="p-2">
-        <SidebarTrigger className="h-10 w-10" />
+        <SidebarTrigger className="h-10 w-10 transition-transform duration-200 hover:scale-110" />
       </div>
       <SidebarContent>
         <SidebarGroup>
@@ -102,9 +102,13 @@ function AppSidebar() {
               {sidebarItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={isActive(item.url)}>
-                    <Link to={item.url} className="flex items-center gap-2">
-                      <item.icon className="h-4 w-4" />
-                      {!isCollapsed && <span>{item.title}</span>}
+                    <Link to={item.url} className="flex items-center gap-2 transition-all duration-200">
+                      <item.icon className="h-4 w-4 transition-transform duration-200" />
+                      {!isCollapsed && (
+                        <span className="animate-fade-in whitespace-nowrap overflow-hidden">
+                          {item.title}
+                        </span>
+                      )}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
