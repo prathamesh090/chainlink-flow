@@ -127,12 +127,7 @@ function AppSidebar() {
                           <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/10 to-transparent animate-pulse opacity-50" />
                         )}
                         
-                        {/* Active indicator for collapsed state */}
-                        {active && isCollapsed && (
-                          <div className="absolute inset-y-0 left-0 w-1 bg-primary-foreground rounded-r" />
-                        )}
-                        
-                        <item.icon 
+                        <item.icon
                           className={`
                             h-5 w-5 flex-shrink-0 relative z-10 transition-all duration-200
                             ${active ? 'scale-110' : 'group-hover:scale-105'}
