@@ -90,46 +90,56 @@ function AppSidebar() {
   const isCollapsed = state === "collapsed";
 
   return (
-    <Sidebar className={`${isCollapsed ? "w-14" : "w-60"} transition-all duration-300 ease-in-out border-r border-border/50`} collapsible="icon">
-      <div className="p-3 border-b border-border/50">
+    <Sidebar 
+      className={`${isCollapsed ? "w-16" : "w-64"} transition-all duration-300 ease-in-out border-r border-border/40 bg-card`} 
+      collapsible="icon"
+    >
+      <div className="p-3 border-b border-border/40 flex items-center justify-center">
         <SidebarTrigger className="h-10 w-10 transition-all duration-200 hover:scale-110 hover:bg-primary/10 rounded-lg" />
       </div>
-      <SidebarContent className="pt-4">
+      <SidebarContent className="pt-4 px-2">
         <SidebarGroup>
           {!isCollapsed && (
-            <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground px-3 mb-2">
+            <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground px-3 mb-3">
               Main Navigation
             </SidebarGroupLabel>
           )}
           <SidebarGroupContent>
-            <SidebarMenu className="space-y-1 px-2">
+            <SidebarMenu className="space-y-1.5">
               {sidebarItems.map((item) => {
                 const active = isActive(item.url);
                 return (
                   <SidebarMenuItem key={item.title}>
-                    <Link to={item.url}>
+                    <Link to={item.url} className="block">
                       <div
                         className={`
                           flex items-center gap-3 px-3 py-2.5 rounded-lg
-                          transition-all duration-200 group relative
+                          transition-all duration-200 group relative overflow-hidden
                           ${active 
-                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30' 
-                            : 'hover:bg-accent hover:shadow-md'
+                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20' 
+                            : 'text-foreground hover:bg-accent hover:text-accent-foreground hover:shadow-md'
                           }
-                          ${isCollapsed ? 'justify-center' : ''}
+                          ${isCollapsed ? 'justify-center px-2' : ''}
                         `}
                       >
-                        {active && (
-                          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/20 to-transparent animate-pulse" />
+                        {/* Animated glow effect for active item */}
+                        {active && !isCollapsed && (
+                          <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/10 to-transparent animate-pulse opacity-50" />
                         )}
+                        
+                        {/* Active indicator for collapsed state */}
+                        {active && isCollapsed && (
+                          <div className="absolute inset-y-0 left-0 w-1 bg-primary-foreground rounded-r" />
+                        )}
+                        
                         <item.icon 
                           className={`
-                            h-5 w-5 relative z-10 transition-transform duration-200
-                            ${active ? 'scale-110' : 'group-hover:scale-110'}
+                            h-5 w-5 flex-shrink-0 relative z-10 transition-all duration-200
+                            ${active ? 'scale-110' : 'group-hover:scale-105'}
                           `} 
                         />
                         {!isCollapsed && (
-                          <span className="animate-fade-in font-medium whitespace-nowrap overflow-hidden relative z-10">
+                          <span className="font-medium text-sm whitespace-nowrap relative z-10 transition-opacity duration-200">
                             {item.title}
                           </span>
                         )}
