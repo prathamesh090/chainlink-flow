@@ -40,6 +40,7 @@ const sidebarItems = [
   { title: "Demand Forecasting", url: "/dashboard/forecasting", icon: TrendingUp },
   { title: "Inventory Management", url: "/dashboard/inventory", icon: Package },
   { title: "Supply Chain", url: "/dashboard/supply-chain", icon: Truck },
+  { title: "Risk Assessment", url: "/dashboard/risk-assessment", icon: AlertTriangle },
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
   { title: "Reports", url: "/dashboard/reports", icon: FileText },
   { title: "Customers", url: "/dashboard/customers", icon: Users },
@@ -90,6 +91,9 @@ function AppSidebar() {
 
   return (
     <Sidebar className={isCollapsed ? "w-14" : "w-60"} collapsible="icon">
+      <div className="p-2">
+        <SidebarTrigger className="h-10 w-10" />
+      </div>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Main Navigation</SidebarGroupLabel>
@@ -115,17 +119,12 @@ function AppSidebar() {
 
 export default function MainDashboard() {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <div className="min-h-screen flex w-full bg-background">
         <AppSidebar />
         
         <main className="flex-1 overflow-hidden">
-          <div className="flex h-16 items-center border-b border-border px-6">
-            <SidebarTrigger />
-            <h1 className="ml-4 text-xl font-semibold">Dashboard Overview</h1>
-          </div>
-          
-          <div className="p-6 space-y-6 overflow-auto h-[calc(100vh-4rem)]">
+          <div className="p-6 space-y-6 overflow-auto h-screen">
             {/* Welcome Section */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
