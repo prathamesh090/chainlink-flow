@@ -73,7 +73,7 @@ export default function SignUp() {
   const handleSubmit = () => {
     // Simulate account creation
     setTimeout(() => {
-      navigate('/');
+      navigate('/dashboard');
     }, 1000);
   };
 
