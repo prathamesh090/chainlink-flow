@@ -90,29 +90,54 @@ function AppSidebar() {
   const isCollapsed = state === "collapsed";
 
   return (
-    <Sidebar className={`${isCollapsed ? "w-14" : "w-60"} transition-all duration-300 ease-in-out`} collapsible="icon">
-      <div className="p-2">
-        <SidebarTrigger className="h-10 w-10 transition-transform duration-200 hover:scale-110" />
+    <Sidebar className={`${isCollapsed ? "w-14" : "w-60"} transition-all duration-300 ease-in-out border-r border-border/50`} collapsible="icon">
+      <div className="p-3 border-b border-border/50">
+        <SidebarTrigger className="h-10 w-10 transition-all duration-200 hover:scale-110 hover:bg-primary/10 rounded-lg" />
       </div>
-      <SidebarContent>
+      <SidebarContent className="pt-4">
         <SidebarGroup>
-          <SidebarGroupLabel>Main Navigation</SidebarGroupLabel>
+          {!isCollapsed && (
+            <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground px-3 mb-2">
+              Main Navigation
+            </SidebarGroupLabel>
+          )}
           <SidebarGroupContent>
-            <SidebarMenu>
-              {sidebarItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={isActive(item.url)}>
-                    <Link to={item.url} className="flex items-center gap-2 transition-all duration-200">
-                      <item.icon className="h-4 w-4 transition-transform duration-200" />
-                      {!isCollapsed && (
-                        <span className="animate-fade-in whitespace-nowrap overflow-hidden">
-                          {item.title}
-                        </span>
-                      )}
+            <SidebarMenu className="space-y-1 px-2">
+              {sidebarItems.map((item) => {
+                const active = isActive(item.url);
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <Link to={item.url}>
+                      <div
+                        className={`
+                          flex items-center gap-3 px-3 py-2.5 rounded-lg
+                          transition-all duration-200 group relative
+                          ${active 
+                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30' 
+                            : 'hover:bg-accent hover:shadow-md'
+                          }
+                          ${isCollapsed ? 'justify-center' : ''}
+                        `}
+                      >
+                        {active && (
+                          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/20 to-transparent animate-pulse" />
+                        )}
+                        <item.icon 
+                          className={`
+                            h-5 w-5 relative z-10 transition-transform duration-200
+                            ${active ? 'scale-110' : 'group-hover:scale-110'}
+                          `} 
+                        />
+                        {!isCollapsed && (
+                          <span className="animate-fade-in font-medium whitespace-nowrap overflow-hidden relative z-10">
+                            {item.title}
+                          </span>
+                        )}
+                      </div>
                     </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
