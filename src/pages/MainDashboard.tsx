@@ -1,51 +1,22 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { 
   BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer 
 } from 'recharts';
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarProvider,
-  SidebarTrigger,
-  useSidebar
-} from '@/components/ui/sidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/dashboard/AppSidebar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
-  LayoutDashboard,
   TrendingUp,
   Package,
-  Truck,
   BarChart3,
-  FileText,
   Users,
-  Settings,
   CheckCircle,
   Plus,
   AlertTriangle,
   Clock,
   Activity
 } from 'lucide-react';
-
-const sidebarItems = [
-  { title: "Dashboard Overview", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Demand Forecasting", url: "/dashboard/forecasting", icon: TrendingUp },
-  { title: "Inventory Management", url: "/dashboard/inventory", icon: Package },
-  { title: "Supply Chain", url: "/dashboard/supply-chain", icon: Truck },
-  { title: "Risk Assessment", url: "/dashboard/risk-assessment", icon: AlertTriangle },
-  { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
-  { title: "Reports", url: "/dashboard/reports", icon: FileText },
-  { title: "Customers", url: "/dashboard/customers", icon: Users },
-  { title: "Settings", url: "/dashboard/settings", icon: Settings },
-];
 
 const statsData = [
   { title: "Suppliers Connected", value: "24", icon: Users, change: "+2 this week" },
@@ -81,75 +52,6 @@ const recentActivities = [
   { id: 4, action: "Inventory updated", description: "Raw material stock levels synchronized", time: "8 hours ago", type: "info" },
   { id: 5, action: "Supplier performance", description: "Monthly supplier scorecards generated", time: "1 day ago", type: "success" },
 ];
-
-function AppSidebar() {
-  const { state } = useSidebar();
-  const location = useLocation();
-  
-  const isActive = (path: string) => location.pathname === path;
-  const isCollapsed = state === "collapsed";
-
-  return (
-    <Sidebar 
-      className={`${isCollapsed ? "w-16" : "w-64"} transition-all duration-300 ease-in-out border-r border-border/40 bg-card`} 
-      collapsible="icon"
-    >
-      <div className="p-3 border-b border-border/40 flex items-center justify-center">
-        <SidebarTrigger className="h-10 w-10 transition-all duration-200 hover:scale-110 hover:bg-primary/10 rounded-lg" />
-      </div>
-      <SidebarContent className="pt-4 px-2">
-        <SidebarGroup>
-          {!isCollapsed && (
-            <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground px-3 mb-3">
-              Main Navigation
-            </SidebarGroupLabel>
-          )}
-          <SidebarGroupContent>
-            <SidebarMenu className="space-y-1.5">
-              {sidebarItems.map((item) => {
-                const active = isActive(item.url);
-                return (
-                  <SidebarMenuItem key={item.title}>
-                    <Link to={item.url} className="block">
-                      <div
-                        className={`
-                          flex items-center gap-3 px-3 py-2.5 rounded-lg
-                          transition-all duration-200 group relative overflow-hidden
-                          ${active 
-                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20' 
-                            : 'text-foreground hover:bg-accent hover:text-accent-foreground hover:shadow-md'
-                          }
-                          ${isCollapsed ? 'justify-center px-2' : ''}
-                        `}
-                      >
-                        {/* Animated glow effect for active item */}
-                        {active && !isCollapsed && (
-                          <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/10 to-transparent animate-pulse opacity-50" />
-                        )}
-                        
-                        <item.icon
-                          className={`
-                            h-5 w-5 flex-shrink-0 relative z-10 transition-all duration-200
-                            ${active ? 'scale-110' : 'group-hover:scale-105'}
-                          `} 
-                        />
-                        {!isCollapsed && (
-                          <span className="font-medium text-sm whitespace-nowrap relative z-10 transition-opacity duration-200">
-                            {item.title}
-                          </span>
-                        )}
-                      </div>
-                    </Link>
-                  </SidebarMenuItem>
-                );
-              })}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-    </Sidebar>
-  );
-}
 
 export default function MainDashboard() {
   return (
