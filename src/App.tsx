@@ -17,6 +17,7 @@ import MainDashboard from "./pages/MainDashboard";
 import SuppliersDiscovery from "./pages/SuppliersDiscovery";
 import SuppliersNetwork from "./pages/SuppliersNetwork";
 import SupplierDetail from "./pages/SupplierDetail";
+import SupplierRisk from "./pages/SupplierRisk";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
