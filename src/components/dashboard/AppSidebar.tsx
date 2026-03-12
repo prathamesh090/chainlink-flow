@@ -38,6 +38,7 @@ const mainItems = [
   { title: "Inventory Management", url: "/dashboard/inventory", icon: Package },
   { title: "Supply Chain", url: "/dashboard/supply-chain", icon: Truck },
   { title: "Risk Assessment", url: "/dashboard/risk-assessment", icon: AlertTriangle },
+  { title: "Supplier Risk", url: "/supplier-risk", icon: ShieldAlert },
   { title: "Analytics", url: "/dashboard/analytics", icon: BarChart3 },
   { title: "Reports", url: "/dashboard/reports", icon: FileText },
   { title: "Customers", url: "/dashboard/customers", icon: Users },
