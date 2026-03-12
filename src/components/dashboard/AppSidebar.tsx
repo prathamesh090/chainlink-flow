@@ -27,7 +27,8 @@ import {
   Settings,
   AlertTriangle,
   Search,
-  Link2
+  Link2,
+  ShieldAlert
 } from 'lucide-react';
 import { useState } from 'react';
 
